@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- Car 객체를 생성해서 관리하되게 하려면 어떻게 해야할까? -->
+	
+	<!-- 아래의 코드는 e1=new Engine() -->
+	<bean id="el" class="test.auto.Engine"/>
+	<!-- 아래의 코드는 new Car(e1) 과 같다 -->
+	<bean class="test.auto.Car">
+		<constructor-arg name="engine" ref="el"/> 
+		<!-- engine 은 car의 engine을 뜻하고 e1 으로 그 값을 담아오는것 -->
+	</bean>
+	<!-- 
+		sedan1=new Sedan();
+		sedan1.setName("소나타");
+		sedan1.setWeight(1000);
+		sedan1.setEngine(e1);
+		
+	 -->
+	 
+	 <!-- 값을 직접 전달하려면 value 이미 만들어진 참조값은 ref 에 담는다 -->
+	<bean id="sedan1" class="test.auto.Sedan">
+		<property name="name" value="소나타"/>
+		<property name="weight" value="1000"/>
+		<property name="engine" ref="el"/>
+	</bean>
+	
+	
+</beans>
