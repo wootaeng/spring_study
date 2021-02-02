@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="users">
+
+	<select id="updateProfile" parameterType="usersDto">
+		update users
+		set profile=#{profile}
+		where id=#{id}
+	</select>
+	
+	<select id="isExist" parameterType="String" resultType="usersDto">
+		select * from users where id=#{id}
+	</select>
+	
+	<select id="updatePwd" parameterType="usersDto">
+		update users set pwd=#{newPwd}
+		where id=#{id} and pwd=#{pwd}
+	</select>
+	
+	<select id="update" parameterType="usersDto">
+		update users set email=#{email} where id=#{id}
+	
+	</select>
+	
+	<delete id="delete" parameterType="String">
+		delete from users where id=#{id}
+	</delete>
+	
+	<!-- regdate 를 날짜 표기로 하려면 TO_CHAR(regdate, 'YY.MM.DD HH24:MI') 만 
+		해서는 적용이 안되고 뒤에 AS regdate 를 붙여줘야한다.
+		이유는 usersDto 에 필드명과 다르기에 필드명을 같이 맞춰줘야 자동으로 맞춰진다.
+	 -->
+	<select id="getData" parameterType="String" resultType="usersDto">
+		select pwd,email,profile,regdate from users
+		where id=#{id}
+	
+	</select>
+	
+	<select id="isValid" parameterType="usersDto" resultType="String">
+		select id from users
+		where id=#{id} and pwd=#{pwd}
+	
+	</select>
+	
+	<select id="insert" parameterType="usersDto">
+		insert into users (id,pwd,email,regdate)
+		values(#{id}, #{pwd}, #{email}, sysdate)
+	</select>
+	
+	
+	
+	
+</mapper>
